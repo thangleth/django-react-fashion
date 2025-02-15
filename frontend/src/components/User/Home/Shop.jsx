@@ -9,6 +9,7 @@ import hot from "../../../../public/images/promotional.png";
 
 const Shop = () => {
   const [shopItems, setShopItems] = useState([]);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -18,24 +19,15 @@ const Shop = () => {
     responsive: [
       {
         breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1
-        }
+        settings: { slidesToShow: 3, slidesToScroll: 1 }
       },
       {
         breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1
-        }
+        settings: { slidesToShow: 2, slidesToScroll: 1 }
       },
       {
         breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
+        settings: { slidesToShow: 1, slidesToScroll: 1 }
       }
     ]
   };
@@ -56,6 +48,7 @@ const Shop = () => {
   return (
     <section className="py-8 bg-gray-50 rounded-lg">
       <div className="container mx-auto p-2 px-3">
+        {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center gap-2">
             <img src={hot} alt="Promotional" className="w-8 h-8" />
@@ -67,17 +60,27 @@ const Shop = () => {
           </div>
         </div>
 
+        {/* Slider or Single Product */}
         <div>
-          <Slider {...settings}>
-            {shopItems.map((item, index) => (
-              <div key={index} className="px-2">
-                <Product shopItems={item} />
-              </div>
-            ))}
-          </Slider>
+          {shopItems.length > 1 ? (
+            <Slider {...settings}>
+              {shopItems.map((item, index) => (
+                <div key={index} className="px-2">
+                  <Product shopItems={item} />
+                </div>
+              ))}
+            </Slider>
+          ) : shopItems.length === 1 ? (
+            <div className="flex justify-center">
+              <Product shopItems={shopItems[0]} />
+            </div>
+          ) : (
+            <p className="text-center text-gray-500">Không có sản phẩm nổi bật</p>
+          )}
         </div>
       </div>
     </section>
   );
 };
+
 export default Shop;
